@@ -3,7 +3,6 @@ package ca.mcmaster.se2aa4.island.teamXXX;
 import java.io.StringReader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
 import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -11,7 +10,9 @@ import org.json.JSONTokener;
 public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
-
+    private boolean isLandFound = false;
+    private boolean isOutOfRange = false;
+    private final DecisionHandler decisionHandler = new DecisionHandler();
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
@@ -25,16 +26,22 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        JSONObject decision = new JSONObject();
-        decision.put("action", "stop"); // we stop the exploration immediately
-        logger.info("** Decision: {}",decision.toString());
-        return decision.toString();
+        String decision = decisionHandler.takeDecision(isLandFound, isOutOfRange);
+        logger.info("Decision is {}", decision);
+        return decision;
+        // decision.put("action", "stop"); // we stop the exploration immediately
     }
 
     @Override
     public void acknowledgeResults(String s) {
         JSONObject response = new JSONObject(new JSONTokener(new StringReader(s)));
-        logger.info("** Response received:\n"+response.toString(2));
+        logger.info("** Response received:\n{}", response.toString(2));
+        if (response.getString("status").equals("GROUND")) {
+            isLandFound = true;
+        }
+        if (response.getString("status").equals("OUT_OF_RANGE")) {
+            isOutOfRange = true;
+        }
         Integer cost = response.getInt("cost");
         logger.info("The cost of the action was {}", cost);
         String status = response.getString("status");
@@ -45,7 +52,8 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
-        return "no creek found";
+
+        return isLandFound ? "Land Found" : "Land Not Found";
     }
 
 }

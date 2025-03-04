@@ -19,7 +19,8 @@ public class Runner {
                     .storingInto("./outputs")
                     .withName("Island")
                     .fire();
-        } catch(Exception e) {
+        }
+        catch(Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace(System.err);
             System.exit(1);
