@@ -1,17 +1,15 @@
 package ca.mcmaster.se2aa4.island.teamXXX;
 
 public class Drone {
-    protected int batteryLevel;
+    protected Battery battery;
     protected String direction;
 
     public Drone(int batteryLevel, String direction) {
-        this.batteryLevel = batteryLevel;
+        this.battery = new Battery(batteryLevel);
         this.direction = direction;
     }
 
-    public int getBatteryLevel() {
-        return batteryLevel;
-    }
+
     public String getDirection() {
         return direction;
     }
@@ -26,7 +24,4 @@ public class Drone {
         this.direction = direction;
     }
 
-    private void setBatteryLevel(int batteryLevel) {
-        this.batteryLevel = batteryLevel;
-    }
 }
