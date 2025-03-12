@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.teamXXX;
+package ca.mcmaster.se2aa4.island.team104;
 
 import java.io.StringReader;
 import org.apache.logging.log4j.LogManager;
@@ -26,10 +26,10 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        String decision = decisionHandler.takeDecision(isLandFound, isOutOfRange);
-        logger.info("Decision is {}", decision);
-        return decision;
-        // decision.put("action", "stop"); // we stop the exploration immediately
+        JSONObject decision = new JSONObject();
+        decision.put("action", "stop"); // we stop the exploration immediately
+        logger.info("** Decision: {}",decision.toString());
+        return decision.toString();
     }
 
     @Override
