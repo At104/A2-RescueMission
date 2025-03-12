@@ -16,4 +16,9 @@ public class RadarAction implements Action {
         logger.info("** Decision: {}", decision.toString());
         return decision;
     }
+
+    @Override
+    public int getCost() {
+        return 10; // Radar action costs 10 battery
+    }
 }

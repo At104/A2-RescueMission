@@ -17,7 +17,13 @@ public class Drone {
 
     // add dynamic polymorphism for different actions and change battery level and direction based on that
     public void changeFromAction(Action action) {
-        return;
+        int cost = action.getCost();
+        if (battery.hasEnoughCharge(cost)) {
+            battery.drain(cost);
+        } 
+        else {
+            System.out.println("Battery too low! Stopping mission.");
+        }
     }
 
     private void setDirection(String direction) {

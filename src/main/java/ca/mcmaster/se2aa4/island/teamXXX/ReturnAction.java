@@ -15,4 +15,9 @@ public class ReturnAction implements Action {
         logger.info("** Decision: {}", decision.toString());
         return decision;
     }
+
+    @Override
+    public int getCost() {
+        return 20; // Return action costs 20 battery
+    }
 }
