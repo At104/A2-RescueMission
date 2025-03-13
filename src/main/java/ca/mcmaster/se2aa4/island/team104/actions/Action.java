@@ -4,4 +4,5 @@ import org.json.JSONObject;
 
 public interface Action {
     JSONObject makeAction();
+    int getCost();
 }

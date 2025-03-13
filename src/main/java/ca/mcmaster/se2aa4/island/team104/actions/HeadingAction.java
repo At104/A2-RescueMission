@@ -15,4 +15,9 @@ public class HeadingAction implements Action {
         JSONObject action = new JSONObject().put("action", "heading").put("direction", direction);
         return action;
     }
+
+    @Override
+    public int getCost() {
+        return 15; // Heading action costs 10 battery
+    }
 }

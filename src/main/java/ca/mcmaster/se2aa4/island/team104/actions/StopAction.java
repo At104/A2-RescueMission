@@ -14,4 +14,9 @@ public class StopAction implements Action {
         logger.info("** makeAction: {}", action.toString());
         return action;
     }
+
+    @Override
+    public int getCost() {
+        return 5; // Stop action costs 5 battery
+    }
 }

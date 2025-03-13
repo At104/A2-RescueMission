@@ -11,4 +11,9 @@ public class FlyAction implements Action {
         return action;
     }
 
+    @Override
+    public int getCost() {
+        return 20; // Fly action costs 20 battery
+    }
+
 }

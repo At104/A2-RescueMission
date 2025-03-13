@@ -14,4 +14,9 @@ public class ScanAction implements Action {
         logger.info("** makeAction: {}", action.toString());
         return action;
     }
+
+    @Override
+    public int getCost() {
+        return 10; // Scan action costs 10 battery
+    }
 }
