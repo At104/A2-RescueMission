@@ -17,6 +17,6 @@ public class StopAction implements Action {
 
     @Override
     public int getCost() {
-        return 5; // Stop action costs 5 battery
+        return 5; //TODO Determine values
     }
 }

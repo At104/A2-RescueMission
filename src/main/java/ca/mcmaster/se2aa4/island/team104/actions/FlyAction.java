@@ -13,7 +13,7 @@ public class FlyAction implements Action {
 
     @Override
     public int getCost() {
-        return 20; // Fly action costs 20 battery
+        return 20; //TODO Determine values
     }
 
 }

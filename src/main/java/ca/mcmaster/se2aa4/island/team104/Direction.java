@@ -2,24 +2,24 @@ package ca.mcmaster.se2aa4.island.team104;
 
 public enum Direction {
 
-    North, South, East, West, NONE;
+    NORTH, SOUTH, EAST, WEST, NONE;
 
     public Direction left() {
         return switch (this) {
-            case North -> Direction.West;
-            case South -> Direction.East;
-            case East -> Direction.North;
-            case West -> Direction.South;
+            case NORTH -> Direction.WEST;
+            case SOUTH -> Direction.EAST;
+            case EAST -> Direction.NORTH;
+            case WEST -> Direction.SOUTH;
             default -> Direction.NONE;
         };
     }
 
     public Direction right() {
         return switch (this) {
-            case North -> Direction.East;
-            case South -> Direction.West;
-            case East -> Direction.South;
-            case West -> Direction.North;
+            case NORTH -> Direction.EAST;
+            case SOUTH -> Direction.WEST;
+            case EAST -> Direction.SOUTH;
+            case WEST -> Direction.NORTH;
             default -> Direction.NONE;
         };
     }
@@ -27,20 +27,20 @@ public enum Direction {
     @Override
     public String toString() {
         return switch (this) {
-            case North -> "NORTH";
-            case South -> "SOUTH";
-            case East -> "EAST";
-            case West -> "WEST";
+            case NORTH -> "NORTH";
+            case SOUTH -> "SOUTH";
+            case EAST -> "EAST";
+            case WEST -> "WEST";
             default -> "NONE";
         };
     }
 
     public static Direction directionFromString(String direction) {
         return switch (direction) {
-            case "NORTH" -> Direction.North;
-            case "SOUTH" -> Direction.South;
-            case "EAST" -> Direction.East;
-            case "WEST" -> Direction.West;
+            case "NORTH" -> Direction.NORTH;
+            case "SOUTH" -> Direction.SOUTH;
+            case "EAST" -> Direction.EAST;
+            case "WEST" -> Direction.WEST;
             default -> Direction.NONE;
         };
     }

@@ -13,16 +13,16 @@ public class CoordinateSystem {
 
     public boolean moveForward() {
         switch (currentDirection) {
-            case North:
+            case NORTH:
                 y++;
                 break;
-            case East:
+            case EAST:
                 x++;
                 break;
-            case South:
+            case SOUTH:
                 y--;
                 break;
-            case West:
+            case WEST:
                 x--;
                 break;
             default:
@@ -35,19 +35,19 @@ public class CoordinateSystem {
     public void turnLeft() {
         currentDirection = currentDirection.left();
         switch (currentDirection) {
-            case North:
+            case NORTH:
                 x++;
                 y++;
                 break;
-            case East:
+            case EAST:
                 x++;
                 y--;
                 break;
-            case South:
+            case SOUTH:
                 x--;
                 y--;
                 break;
-            case West:
+            case WEST:
                 x--;
                 y++;
                 break;
