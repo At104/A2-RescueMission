@@ -27,10 +27,10 @@ public enum Direction {
     @Override
     public String toString() {
         return switch (this) {
-            case NORTH -> "NORTH";
-            case SOUTH -> "SOUTH";
-            case EAST -> "EAST";
-            case WEST -> "WEST";
+            case NORTH -> "N";
+            case SOUTH -> "S";
+            case EAST -> "E";
+            case WEST -> "W";
             default -> "NONE";
         };
     }

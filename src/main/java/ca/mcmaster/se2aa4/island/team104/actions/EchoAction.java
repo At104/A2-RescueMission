@@ -4,20 +4,21 @@ import ca.mcmaster.se2aa4.island.team104.Direction;
 import org.json.JSONObject;
 
 public class EchoAction implements Action {
-    private final Direction direction;
+    private final Direction heading;
 
-    public EchoAction(Direction direction) {
-        this.direction = direction;
+    public EchoAction(Direction heading) {
+        this.heading = heading;
     }
 
     @Override
     public JSONObject makeAction() {
-        JSONObject action = new JSONObject().put("action", "radar").put("direction", direction.toString());
+        JSONObject parameters = new JSONObject().put("direction", heading.toString());
+        JSONObject action = new JSONObject().put("action", "echo").put("parameters", parameters);
         return action;
     }
 
     @Override
     public int getCost() {
-        return 5; //TODO Determine values
+        return 1;
     }
 }

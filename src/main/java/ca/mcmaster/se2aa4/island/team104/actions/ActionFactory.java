@@ -4,20 +4,24 @@ import ca.mcmaster.se2aa4.island.team104.Direction;
 
 public class ActionFactory {
 
-    public String createScanAction() {
-        return new ScanAction().toString();
+    public Action createScanAction() {
+        return new ScanAction();
     }
 
-    public String createFlyAction() {
-        return new FlyAction().toString();
+    public Action createFlyAction() {
+        return new FlyAction();
     }
 
-    public String createStopAction() {
-        return new StopAction().toString();
+    public Action createStopAction() {
+        return new StopAction();
     }
 
-    public String createHeadingAction(Direction direction) {
-        return new HeadingAction(direction).toString();
+    public Action createHeadingAction(Direction direction) {
+        return new HeadingAction(direction);
+    }
+
+    public Action createEchoAction(Direction heading) {
+        return new EchoAction(heading);
     }
 
 

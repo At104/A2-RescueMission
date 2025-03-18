@@ -12,12 +12,13 @@ public class HeadingAction implements Action {
 
     @Override
     public JSONObject makeAction() {
-        JSONObject action = new JSONObject().put("action", "heading").put("direction", direction);
+        JSONObject parameters = new JSONObject().put("direction", direction.toString());
+        JSONObject action = new JSONObject().put("action", "heading").put("parameters", parameters);
         return action;
     }
 
     @Override
     public int getCost() {
-        return 15; // Heading action costs 15
+        return 4;
     }
 }
