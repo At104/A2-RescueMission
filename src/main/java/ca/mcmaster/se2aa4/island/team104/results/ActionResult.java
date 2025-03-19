@@ -2,7 +2,6 @@ package ca.mcmaster.se2aa4.island.team104.results;
 
 
 import org.json.JSONObject;
-import java.util.List;
 public class ActionResult {
 
     private int cost;

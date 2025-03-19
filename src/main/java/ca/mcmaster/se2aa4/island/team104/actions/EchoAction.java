@@ -1,7 +1,8 @@
 package ca.mcmaster.se2aa4.island.team104.actions;
 
-import ca.mcmaster.se2aa4.island.team104.Direction;
 import org.json.JSONObject;
+
+import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 
 public class EchoAction implements Action {
     private final Direction heading;

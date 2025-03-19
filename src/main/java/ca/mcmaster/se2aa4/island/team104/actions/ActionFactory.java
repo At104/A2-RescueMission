@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.island.team104.actions;
 
-import ca.mcmaster.se2aa4.island.team104.Direction;
+import ca.mcmaster.se2aa4.island.team104.drone.Direction;
+
 
 public class ActionFactory {
 

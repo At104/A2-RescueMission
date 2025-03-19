@@ -1,6 +1,5 @@
 package ca.mcmaster.se2aa4.island.team104.results;
 
-import org.json.JSONObject;
 
 public record EchoActionResult(int range, boolean groundFound) {
 
