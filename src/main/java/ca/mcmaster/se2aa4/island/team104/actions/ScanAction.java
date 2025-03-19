@@ -17,6 +17,6 @@ public class ScanAction implements Action {
 
     @Override
     public int getCost() {
-        return 10; //TODO Determine values
+        return 2;
     }
 }
