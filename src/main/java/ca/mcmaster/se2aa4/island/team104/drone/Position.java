@@ -82,4 +82,13 @@ public class Position {
         CREEK,
         EMERGENCY_SITE
     }
+
+    public String toString() {
+        return "(" + x + ", " + y + ")";
+    }
+
+    public String toStringWithPOI() {
+        String id = hashCode() + "";
+        return "POI: " + poi + " ID: " + id + " at (" + x + ", " + y + ")";
+    }
 } 

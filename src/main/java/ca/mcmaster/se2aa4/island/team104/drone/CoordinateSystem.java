@@ -10,7 +10,7 @@ public class CoordinateSystem {
     private Direction currentDirection;
     private Set<Position> visitedPositions;
     private Map<Position.PointOfInterest, Position> pointsOfInterest;
-    private static final int MAX_GRID_SIZE = 100;
+    private CoordinateMap map;
 
     public CoordinateSystem(int x, int y, Direction currentDirection) {
         this.currentPosition = new Position(x, y);
@@ -18,6 +18,7 @@ public class CoordinateSystem {
         this.visitedPositions = new HashSet<>();
         this.pointsOfInterest = new HashMap<>();
         this.visitedPositions.add(currentPosition);
+        this.map = new CoordinateMap();
     }
 
     public boolean moveForward() {
@@ -40,8 +41,8 @@ public class CoordinateSystem {
     }
 
     public boolean isValidPosition(Position pos) {
-        return pos.getX() >= 0 && pos.getX() < MAX_GRID_SIZE && 
-               pos.getY() >= 0 && pos.getY() < MAX_GRID_SIZE;
+        return pos.getX() >= 0 && pos.getX() < map.getWidth() &&
+               pos.getY() >= 0 && pos.getY() < map.getHeight();
     }
 
     public boolean hasVisited(Position pos) {
@@ -98,46 +99,5 @@ public class CoordinateSystem {
 
     public Set<Position> getVisitedPositions() {
         return new HashSet<>(visitedPositions);
-    }
-
-    public void updateBiome(Position pos, Position.Biome biome) {
-        pos.setBiome(biome);
-    }
-
-    public void addPointOfInterest(Position pos, Position.PointOfInterest poi) {
-        pos.setPointOfInterest(poi);
-        pointsOfInterest.put(poi, pos);
-    }
-
-    public Position getNearestPointOfInterest(Position.PointOfInterest poi) {
-        return pointsOfInterest.get(poi);
-    }
-
-    public Set<Position> getAllPointsOfInterest() {
-        return new HashSet<>(pointsOfInterest.values());
-    }
-
-    public Set<Position> getPointsOfInterestByType(Position.PointOfInterest poi) {
-        Set<Position> result = new HashSet<>();
-        for (Map.Entry<Position.PointOfInterest, Position> entry : pointsOfInterest.entrySet()) {
-            if (entry.getKey() == poi) {
-                result.add(entry.getValue());
-            }
-        }
-        return result;
-    }
-
-    public Position getNearestCreek() {
-        Position nearest = null;
-        double minDistance = Double.MAX_VALUE;
-
-        for (Position creek : getPointsOfInterestByType(Position.PointOfInterest.CREEK)) {
-            double distance = getDistanceTo(creek);
-            if (distance < minDistance) {
-                minDistance = distance;
-                nearest = creek;
-            }
-        }
-        return nearest;
     }
 }
