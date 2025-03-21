@@ -11,7 +11,9 @@ public class StartingState extends State {
 
     @Override
     public State getNextState(ActionResult result) {
-        return new ScanningState(getDrone());
+        Drone drone = getDrone();
+        //TODO implement the logic to determine the next state
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.island.team104.drone;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
 
+import ca.mcmaster.se2aa4.island.team104.actions.ActionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +11,7 @@ public class Drone {
     protected Direction direction;
     protected CoordinateSystem coordinates;
     private final Logger logger = LogManager.getLogger();
+    private ActionFactory actionFactory;
 
     public Drone(int batteryLevel, String direction, int x, int y) {
         this.battery = new Battery(batteryLevel);
@@ -37,5 +39,27 @@ public class Drone {
     private void setDirection(String direction) {
         this.direction = Direction.directionFromString(direction);
     }
+
+    public Action runScanAction() {
+        return actionFactory.createScanAction();
+    }
+
+    public Action runFlyAction() {
+        return actionFactory.createFlyAction();
+    }
+
+    public Action runStopAction() {
+        return actionFactory.createStopAction();
+    }
+
+    public Action runHeadingAction(Direction direction) {
+        return actionFactory.createHeadingAction(direction);
+    }
+
+    public Action runEchoAction(Direction heading) {
+        return actionFactory.createEchoAction(heading);
+    }
+
+
 
 }

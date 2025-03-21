@@ -45,4 +45,8 @@ public class ActionResult {
 
         return json.toString();
     }
+
+    public int getCost() {
+        return cost;
+    }
 }
