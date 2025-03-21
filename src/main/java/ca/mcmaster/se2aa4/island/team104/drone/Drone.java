@@ -3,6 +3,7 @@ package ca.mcmaster.se2aa4.island.team104.drone;
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
 
 import ca.mcmaster.se2aa4.island.team104.actions.ActionFactory;
+import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,13 +27,15 @@ public class Drone {
 
 
     // add dynamic polymorphism for different actions and change battery level and direction based on that
-    public void changeFromAction(Action action) {
-        int cost = action.getCost();
+    public boolean decreaseBatteryOfAction(ActionResult result) {
+        int cost = result.getCost();
         if (battery.hasEnoughCharge(cost)) {
             battery.decreaseBattery(cost);
+            return true;
         } 
         else {
             logger.info("Battery too low! Stopping mission.");
+            return false;
         }
     }
 
