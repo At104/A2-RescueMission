@@ -1,35 +1,30 @@
 package ca.mcmaster.se2aa4.island.team104.drone;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class CoordinateMap {
     private int height;
     private int width;
-    private List<Position> Pois;
-    private boolean hasCreek = false;
+    private Set<Position> visitedPositions;
+    private Position startingPosition;
 
-    public CoordinateMap(){
-        this.height = 0;
-        this.width = 0;
-        this.Pois = new ArrayList<>();
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setWidth(int width) {
+    public CoordinateMap(int width, int height) {
         this.width = width;
+        this.height = height;
+        this.visitedPositions = new HashSet<>();
     }
 
-    public void addPoi(Position poi) {
-        Pois.add(poi);
-        if (poi.hasPointOfInterest() && poi.getPointOfInterest() == Position.PointOfInterest.CREEK) {
-            hasCreek = true;
-        }
+    public void addVisitedPosition(Position pos) {
+        visitedPositions.add(pos);
+    }
+
+    public boolean hasVisited(Position pos) {
+        return visitedPositions.contains(pos);
+    }
+
+    public Set<Position> getVisitedPositions() {
+        return new HashSet<>(visitedPositions);
     }
 
     public int getHeight() {
@@ -45,33 +40,26 @@ public class CoordinateMap {
         this.width = width;
     }
 
-    public Position getClosestCreek(){
-        if (hasCreek){
-            Position closestCreek = null;
-            int minDistance = Integer.MAX_VALUE;
-            for (Position poi : Pois){
-                if (poi.getPointOfInterest() == Position.PointOfInterest.CREEK){
-                    int distance = Math.abs(poi.getX()) + Math.abs(poi.getY());
-                    if (distance < minDistance){
-                        minDistance = distance;
-                        closestCreek = poi;
-                    }
-                }
-            }
-            return closestCreek;
-        }
-        return null;
+    public boolean isValidPosition(Position pos) {
+        return pos.getX() >= 0 && pos.getX() < width &&
+               pos.getY() >= 0 && pos.getY() < height;
     }
 
-    public Set<Position> getPointsOfInterestByType(Position.PointOfInterest poi) {
-        Set<Position> result = new HashSet<>();
-        for (Position position : Pois) {
-            if (position.hasPointOfInterest() && position.getPointOfInterest() == poi) {
-                result.add(position);
-            }
-        }
-        return result;
+    public boolean isAtMapBoundary(Position pos) {
+        return pos.getX() == 0 || pos.getX() == width - 1 ||
+               pos.getY() == 0 || pos.getY() == height - 1;
     }
 
-    public List<Position> getPois() { return  Pois; }
+    public Position getStartingPosition() {
+        return startingPosition;
+    }
+
+    public void setStartingPosition(Position pos) {
+        this.startingPosition = pos;
+        addVisitedPosition(pos);
+    }
+
+    public boolean isAtStartingPosition(Position pos) {
+        return pos.equals(startingPosition);
+    }
 }

@@ -24,6 +24,11 @@ public enum Direction {
         };
     }
 
+    public boolean isValidTurn(Direction newDirection) {
+        // Can only turn left or right, no U-turns
+        return newDirection == this.left() || newDirection == this.right();
+    }
+
     @Override
     public String toString() {
         return switch (this) {

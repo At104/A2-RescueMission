@@ -1,46 +1,67 @@
 package ca.mcmaster.se2aa4.island.team104.drone;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
-
 import ca.mcmaster.se2aa4.island.team104.actions.ActionFactory;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class Drone {
-    protected Battery battery;
-    protected Direction direction;
-    protected CoordinateSystem coordinates;
+    private Position position;
+    private Direction heading;
+    private int batteryLevel;
+    private final int maxBattery;
+    private final CoordinateMap map;
     private final Logger logger = LogManager.getLogger();
-    private ActionFactory actionFactory;
+    private final ActionFactory actionFactory;
 
-    public Drone(int batteryLevel, String direction, int x, int y) {
-        this.battery = new Battery(batteryLevel);
-        this.direction = Direction.directionFromString(direction);
-        this.coordinates = new CoordinateSystem(x, y, Direction.directionFromString(direction));
+    public Drone(Position startPos, Direction startDir, int maxBattery, CoordinateMap map) {
+        this.position = startPos;
+        this.heading = startDir;
+        this.maxBattery = maxBattery;
+        this.batteryLevel = maxBattery;
+        this.map = map;
+        this.actionFactory = new ActionFactory();
     }
 
-
-    public Direction getDirection() {
-        return direction;
+    public Position getPosition() {
+        return position;
     }
 
+    public Direction getHeading() {
+        return heading;
+    }
 
-    // add dynamic polymorphism for different actions and change battery level and direction based on that
+    public int getBatteryLevel() {
+        return batteryLevel;
+    }
+
+    public boolean consumeBattery(int amount) {
+        if (batteryLevel >= amount) {
+            batteryLevel -= amount;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasEnoughBattery(int requiredAmount) {
+        return batteryLevel >= requiredAmount;
+    }
+
+    public boolean isOutOfBattery() {
+        return batteryLevel <= 0;
+    }
+
     public boolean decreaseBatteryOfAction(ActionResult result) {
         int cost = result.getCost();
-        if (battery.hasEnoughCharge(cost)) {
-            battery.decreaseBattery(cost);
+        if (batteryLevel >= cost) {
+            batteryLevel -= cost;
             return true;
         } 
         else {
             logger.info("Battery too low! Stopping mission.");
             return false;
         }
-    }
-
-    private void setDirection(String direction) {
-        this.direction = Direction.directionFromString(direction);
     }
 
     public Action runScanAction() {
@@ -59,10 +80,16 @@ public class Drone {
         return actionFactory.createHeadingAction(direction);
     }
 
-    public Action runEchoAction(Direction heading) {
-        return actionFactory.createEchoAction(heading);
+    public Action runEchoAction(Direction direction) {
+        return actionFactory.createEchoAction(direction);
     }
 
+    public void updatePosition(Position newPosition) {
+        this.position = newPosition;
+        map.addVisitedPosition(newPosition);
+    }
 
-
+    public void updateHeading(Direction newHeading) {
+        this.heading = newHeading;
+    }
 }

@@ -13,6 +13,29 @@ public class Position {
         this.poi = null;
     }
 
+    public Position getNextPosition(Direction dir) {
+        int newX = x;
+        int newY = y;
+        
+        switch (dir) {
+            case NORTH -> newY++;
+            case SOUTH -> newY--;
+            case EAST -> newX++;
+            case WEST -> newX--;
+            default -> throw new IllegalArgumentException("Unexpected value: " + dir);
+        }
+        
+        return new Position(newX, newY);
+    }
+
+    public int getManhattanDistance(Position other) {
+        return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
+    }
+
+    public boolean isAdjacent(Position other) {
+        return this.getManhattanDistance(other) == 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -21,10 +44,7 @@ public class Position {
         return x == position.x && y == position.y;
     }
 
-    @Override
-    public int hashCode() {
-        return 31 * x + y;
-    }
+   
 
     public int getX() {
         return x;
@@ -62,14 +82,6 @@ public class Position {
         return biome == Biome.OCEAN;
     }
 
-    public boolean isCreek() {
-        return poi == PointOfInterest.CREEK;
-    }
-
-    public boolean isEmergencySite() {
-        return poi == PointOfInterest.EMERGENCY_SITE;
-    }
-
     public enum Biome {
         OCEAN,
         BEACH,
@@ -78,17 +90,7 @@ public class Position {
         UNKNOWN
     }
 
-    public enum PointOfInterest {
-        CREEK,
-        EMERGENCY_SITE
-    }
-
     public String toString() {
         return "(" + x + ", " + y + ")";
-    }
-
-    public String toStringWithPOI() {
-        String id = hashCode() + "";
-        return "POI: " + poi + " ID: " + id + " at (" + x + ", " + y + ")";
     }
 } 
