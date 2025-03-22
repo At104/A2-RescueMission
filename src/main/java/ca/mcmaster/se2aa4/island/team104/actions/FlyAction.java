@@ -55,7 +55,6 @@ public class FlyAction implements Action {
             return false;
         }
 
-        drone.consumeBattery(COST);
         drone.updatePosition(nextPos);
         return true;
     }

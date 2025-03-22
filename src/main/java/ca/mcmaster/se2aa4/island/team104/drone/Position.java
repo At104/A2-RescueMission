@@ -13,21 +13,7 @@ public class Position {
         this.poi = null;
     }
 
-    public Position getNextPosition(Direction direction) {
-        int newX = x;
-        int newY = y;
-        
-        switch (direction) {
-            case NORTH -> newY++;
-            case SOUTH -> newY--;
-            case EAST -> newX++;
-            case WEST -> newX--;
-            default -> throw new IllegalArgumentException("Unexpected value: " + direction);
-        }
-        
-        return new Position(newX, newY);
-    }
-
+   
     public int getManhattanDistance(Position other) {
         return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
     }
