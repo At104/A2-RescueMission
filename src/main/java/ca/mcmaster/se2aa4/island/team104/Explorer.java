@@ -11,8 +11,8 @@ public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     private boolean isLandFound = false;
-    private boolean isOutOfRange = false;
-    private final DecisionHandler decisionHandler = new DecisionHandler();
+
+
     @Override
     public void initialize(String s) {
         logger.info("** Initializing the Exploration Command Center");
@@ -39,9 +39,7 @@ public class Explorer implements IExplorerRaid {
         if (response.getString("status").equals("GROUND")) {
             isLandFound = true;
         }
-        if (response.getString("status").equals("OUT_OF_RANGE")) {
-            isOutOfRange = true;
-        }
+        
         Integer cost = response.getInt("cost");
         logger.info("The cost of the action was {}", cost);
         String status = response.getString("status");

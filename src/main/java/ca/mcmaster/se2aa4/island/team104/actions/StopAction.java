@@ -19,4 +19,15 @@ public class StopAction implements Action {
     public int getCost() {
         return 3;
     }
+
+    @Override
+    public boolean execute(Drone drone) {
+        if (drone.hasEnoughBattery(getCost())) {
+            drone.consumeBattery(getCost());
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }

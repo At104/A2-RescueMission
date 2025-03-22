@@ -13,16 +13,16 @@ public class Position {
         this.poi = null;
     }
 
-    public Position getNextPosition(Direction dir) {
+    public Position getNextPosition(Direction direction) {
         int newX = x;
         int newY = y;
         
-        switch (dir) {
+        switch (direction) {
             case NORTH -> newY++;
             case SOUTH -> newY--;
             case EAST -> newX++;
             case WEST -> newX--;
-            default -> throw new IllegalArgumentException("Unexpected value: " + dir);
+            default -> throw new IllegalArgumentException("Unexpected value: " + direction);
         }
         
         return new Position(newX, newY);

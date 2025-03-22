@@ -10,16 +10,14 @@ public class Drone {
     private Position position;
     private Direction heading;
     private int batteryLevel;
-    private final int maxBattery;
     private final CoordinateMap map;
     private final Logger logger = LogManager.getLogger();
     private final ActionFactory actionFactory;
 
-    public Drone(Position startPos, Direction startDir, int maxBattery, CoordinateMap map) {
+    public Drone(Position startPos, Direction startDir, int battery, CoordinateMap map) {
         this.position = startPos;
         this.heading = startDir;
-        this.maxBattery = maxBattery;
-        this.batteryLevel = maxBattery;
+        this.batteryLevel = battery;
         this.map = map;
         this.actionFactory = new ActionFactory();
     }
@@ -91,5 +89,9 @@ public class Drone {
 
     public void updateHeading(Direction newHeading) {
         this.heading = newHeading;
+    }
+
+    public CoordinateMap getMap() {
+        return map;
     }
 }
