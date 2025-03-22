@@ -10,7 +10,7 @@ public abstract class Algorithm {
     private State state;
     public Algorithm(Drone drone, State state) {
         this.drone = drone;
-        this.state = new StartState(drone);
+        this.state = state;
     }
 
     public Action makeDecision() {
@@ -21,5 +21,16 @@ public abstract class Algorithm {
         return drone.getMap();
     }
 
-    public abstract void processResult(ActionResult result);
+    protected State getState() {
+        return state;
+    }
+
+    protected void setState(State state) {
+        this.state = state;
+    }
+
+    public State processResult(ActionResult result) {
+       return state.getNextState(result);
+       
+    }
 } 

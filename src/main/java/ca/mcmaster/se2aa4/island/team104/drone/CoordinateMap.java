@@ -1,6 +1,8 @@
 package ca.mcmaster.se2aa4.island.team104.drone;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class CoordinateMap {
@@ -8,11 +10,13 @@ public class CoordinateMap {
     private int width;
     private Set<Position> visitedPositions;
     private Position startingPosition;
-
+    private List<PointOfInterest> creeks;
+    private PointOfInterest site;
     public CoordinateMap(int width, int height) {
         this.width = width;
         this.height = height;
         this.visitedPositions = new HashSet<>();
+        this.creeks = new ArrayList<>();
     }
 
     public void addVisitedPosition(Position pos) {
@@ -62,4 +66,50 @@ public class CoordinateMap {
     public boolean isAtStartingPosition(Position pos) {
         return pos.equals(startingPosition);
     }
+
+    public List<PointOfInterest> getCreeks() {
+        return creeks;
+    }
+
+    public PointOfInterest getSite() {
+        return site;
+    }
+
+    private void addCreek(PointOfInterest creek) {
+        creeks.add(creek);
+    }
+
+    private void addSite(PointOfInterest site) {
+        this.site = site;
+    }
+
+    public void addPointOfInterest(PointOfInterest poi) {
+        if (poi.isCreek()) {
+            addCreek(poi);
+        } 
+        else if (poi.isEmergencySite()) {
+            addSite(poi);
+        }
+    }
+
+    public PointOfInterest getClosestCreek() {
+        if (creeks.isEmpty()) {
+            return null;
+        }
+
+        PointOfInterest closestCreek = creeks.get(0);
+        int minDistance = site.getPosition().getManhattanDistance(closestCreek.getPosition());
+
+        for (PointOfInterest creek : creeks) {
+            int distance = site.getPosition().getManhattanDistance(creek.getPosition());
+            if (distance < minDistance) {
+                minDistance = distance;
+                closestCreek = creek;
+            }
+        }
+
+        return closestCreek;
+    }
+    
+    
 }
