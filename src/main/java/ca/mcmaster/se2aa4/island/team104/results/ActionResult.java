@@ -49,4 +49,12 @@ public class ActionResult {
     public int getCost() {
         return cost;
     }
+
+    public EchoActionResult getEchoResult() {
+        return echoResult;
+    }
+
+    public ScanActionResult getScanResult() {
+        return scanResult;
+    }
 }
