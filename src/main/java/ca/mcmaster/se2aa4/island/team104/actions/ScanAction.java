@@ -5,8 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 public class ScanAction implements Action {
-
-    private final Logger logger = LogManager.getLogger();
+    
+    private static final int COST = 2;
 
     @Override
     public JSONObject makeAction() {
@@ -17,7 +17,7 @@ public class ScanAction implements Action {
 
     @Override
     public int getCost() {
-        return 2;
+        return COST;
     }
 
     @Override

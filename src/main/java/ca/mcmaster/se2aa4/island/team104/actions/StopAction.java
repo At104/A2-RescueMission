@@ -1,23 +1,22 @@
 package ca.mcmaster.se2aa4.island.team104.actions;
 
 import org.json.JSONObject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
+import ca.mcmaster.se2aa4.island.team104.drone.Drone;
+
 
 public class StopAction implements Action {
 
-    private final Logger logger = LogManager.getLogger();
+    private static final int COST = 3;
 
     @Override
     public JSONObject makeAction() {
-        JSONObject action = new JSONObject().put("action", "stop");
-        logger.info("** makeAction: {}", action.toString());
-        return action;
+        return new JSONObject().put("action", "stop");
     }
 
     @Override
     public int getCost() {
-        return 3;
+        return COST;
     }
 
     @Override
