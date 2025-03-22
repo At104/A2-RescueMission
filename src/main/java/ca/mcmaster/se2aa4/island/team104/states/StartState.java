@@ -1,8 +1,6 @@
 package ca.mcmaster.se2aa4.island.team104.states;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
-import ca.mcmaster.se2aa4.island.team104.actions.EchoAction;
-import ca.mcmaster.se2aa4.island.team104.actions.HeadingAction;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
@@ -28,11 +26,11 @@ public class StartState extends State {
 
         if (start) {
             start = false;
-            return new HeadingAction(currentDirection.right());
+            return drone.runHeadingAction(currentDirection.right());
         } else if (dimensions.containsKey(currentDirection)) {
-            return new HeadingAction(currentDirection.left());
+            return drone.runHeadingAction(currentDirection.left());
         } else {
-            return new EchoAction(currentDirection);
+            return drone.runEchoAction(currentDirection);
         }
     }
 
@@ -63,6 +61,6 @@ public class StartState extends State {
 
     @Override
     public String toString() {
-        return "StartingState";
+        return "StartState";
     }
-}
+} 
