@@ -16,11 +16,19 @@ public class Drone {
     private final ActionFactory actionFactory;
 
     public Drone(Position startPos, Direction startDir, int battery, CoordinateMap map) {
+        logger.info("Initializing Drone...");
+        logger.info("Starting Position: {}", startPos);
+        logger.info("Starting Direction: {}", startDir);
+        logger.info("Battery Level: {}", battery);
+        logger.info("Coordinate Map: {}", map);
+
         this.position = startPos;
         this.heading = startDir;
         this.batteryLevel = battery;
         this.map = map;
         this.actionFactory = new ActionFactory();
+
+        logger.info("Drone initialization complete.");
     }
 
     public Position getPosition() {
@@ -43,37 +51,45 @@ public class Drone {
         int cost = result.getCost();
         if (batteryLevel >= cost) {
             batteryLevel -= cost;
+            logger.info("Battery decreased by {}. Remaining battery: {}", cost, batteryLevel);
         } else {
-            logger.info("Battery too low! Stopping mission.");
+            logger.warn("Battery too low! Stopping mission.");
         }
     }
 
     public Action runScanAction() {
+        logger.info("Creating Scan Action...");
         return actionFactory.createScanAction();
     }
 
     public Action runFlyAction() {
+        logger.info("Creating Fly Action...");
         return actionFactory.createFlyAction();
     }
 
     public Action runStopAction() {
+        logger.info("Creating Stop Action...");
         return actionFactory.createStopAction();
     }
 
     public Action runHeadingAction(Direction direction) {
+        logger.info("Creating Heading Action for direction: {}", direction);
         return actionFactory.createHeadingAction(direction);
     }
 
     public Action runEchoAction(Direction direction) {
+        logger.info("Creating Echo Action for direction: {}", direction);
         return actionFactory.createEchoAction(direction);
     }
 
     public void updatePosition(Position newPosition) {
+        logger.info("Updating position to: {}", newPosition);
         this.position = newPosition;
         map.addVisitedPosition(newPosition);
     }
 
     public void updateHeading(Direction newHeading) {
+        logger.info("Updating heading to: {}", newHeading);
         this.heading = newHeading;
     }
 
@@ -82,14 +98,19 @@ public class Drone {
     }
 
     public void processScanResult(ActionResult result) {
+        logger.info("Processing scan result...");
         if (result.getScanResult() != null) {
             ScanActionResult scanResult = result.getScanResult();
             for (String creek : scanResult.creeks()) {
+                logger.info("Adding creek POI: {}", creek);
                 map.addPointOfInterest(new PointOfInterest(creek, position, POIType.CREEK));
             }
             for (String site : scanResult.sites()) {
+                logger.info("Adding emergency site POI: {}", site);
                 map.addPointOfInterest(new PointOfInterest(site, position, POIType.EMERGENCY_SITE));
             }
+        } else {
+            logger.warn("No scan result found.");
         }
     }
 }

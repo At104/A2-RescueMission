@@ -36,6 +36,21 @@ public enum Direction {
         };
     }
 
+    public static Direction fromShortName(String shortName) {
+        switch (shortName.toUpperCase()) {
+            case "N":
+                return NORTH;
+            case "E":
+                return EAST;
+            case "S":
+                return SOUTH;
+            case "W":
+                return WEST;
+            default:
+                throw new IllegalArgumentException("Invalid direction: " + shortName);
+        }
+    }
+
     public static Direction directionFromString(String direction) {
         return switch (direction) {
             case "NORTH" -> Direction.NORTH;
