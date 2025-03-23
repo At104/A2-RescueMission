@@ -2,42 +2,27 @@ package ca.mcmaster.se2aa4.island.team104.actions;
 
 import org.json.JSONObject;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
+import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Position;
+import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 
 public class FlyAction implements Action {
-    private static final int COST = 2;
-
     @Override
-    public JSONObject makeAction() {
-        return new JSONObject().put("action", "fly");
-    }
-
-    @Override
-    public int getCost() {
-        return COST;
-    }
-
-    @Override
-    public boolean execute(Drone drone) {
-        if (drone.hasEnoughBattery(COST)) {
-            drone.consumeBattery(COST);
-        }
-        else {
-            return false;
-        }
-
+    public void execute(Drone drone, ActionResult result) {
+        drone.decreaseBatteryOfAction(result);
+        
+        Direction currentDirection = drone.getHeading();
         Position currentPos = drone.getPosition();
-        Position nextPos;
+        Position newPos;
         int x = currentPos.getX();
         int y = currentPos.getY();
 
-        // Calculate next position based on current heading
-        switch(drone.getHeading()) {
+        switch(currentDirection) {
             case NORTH:
-                y += 1;
+                y -= 1;
                 break;
             case SOUTH:
-                y -= 1;
+                y += 1;
                 break;
             case EAST:
                 x += 1;
@@ -49,13 +34,19 @@ public class FlyAction implements Action {
                 break;
         }
 
-        nextPos = new Position(x, y);
-        
-        if (!drone.getMap().isValidPosition(nextPos)) {
-            return false;
-        }
+        newPos = new Position(x, y);
+        drone.updatePosition(newPos);
+    }
 
-        drone.updatePosition(nextPos);
-        return true;
+    @Override
+    public JSONObject makeAction() {
+        JSONObject command = new JSONObject();
+        command.put("action", "fly");
+        return command;
+    }
+
+    @Override
+    public ActionType type() {
+        return ActionType.FLY;
     }
 }

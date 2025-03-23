@@ -1,32 +1,24 @@
 package ca.mcmaster.se2aa4.island.team104.actions;
 
 import org.json.JSONObject;
-
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
-
+import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 
 public class StopAction implements Action {
-
-    private static final int COST = 3;
+    @Override
+    public void execute(Drone drone, ActionResult result) {
+        drone.decreaseBatteryOfAction(result);
+    }
 
     @Override
     public JSONObject makeAction() {
-        return new JSONObject().put("action", "stop");
+        JSONObject command = new JSONObject();
+        command.put("action", "stop");
+        return command;
     }
 
     @Override
-    public int getCost() {
-        return COST;
-    }
-
-    @Override
-    public boolean execute(Drone drone) {
-        if (drone.hasEnoughBattery(getCost())) {
-            drone.consumeBattery(getCost());
-            return true;
-        }
-        else {
-            return false;
-        }
+    public ActionType type() {
+        return ActionType.STOP;
     }
 }

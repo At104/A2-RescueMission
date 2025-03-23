@@ -3,6 +3,7 @@ package ca.mcmaster.se2aa4.island.team104.drone;
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
 import ca.mcmaster.se2aa4.island.team104.actions.ActionFactory;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
+import ca.mcmaster.se2aa4.island.team104.results.ScanActionResult;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -93,5 +94,17 @@ public class Drone {
 
     public CoordinateMap getMap() {
         return map;
+    }
+
+    public void processScanResult(ActionResult result) {
+        if (result.getScanResult() != null) {
+            ScanActionResult scanResult = result.getScanResult();
+            for (String creek : scanResult.creeks()) {
+                map.addPointOfInterest(new PointOfInterest(PointOfInterest.POIType.CREEK, creek, position));
+            }
+            for (String site : scanResult.sites()) {
+                map.addPointOfInterest(new PointOfInterest(PointOfInterest.POIType.EMERGENCY_SITE, site, position));
+            }
+        }
     }
 }
