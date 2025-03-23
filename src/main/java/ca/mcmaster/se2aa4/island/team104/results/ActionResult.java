@@ -57,4 +57,18 @@ public class ActionResult {
     public ScanActionResult getScanResult() {
         return scanResult;
     }
+
+    // Added for testing purposes only
+    public JSONObject getJSON() {
+        JSONObject json = new JSONObject();
+        json.put("cost", cost);
+        if (echoResult != null) {
+            json.put("extras", echoResult.toString());
+        }
+        else if (scanResult != null) {
+            json.put("extras", scanResult.toString());
+        }
+        json.put("status", status ? "OK" : "MIA");
+        return json;
+    }
 }
