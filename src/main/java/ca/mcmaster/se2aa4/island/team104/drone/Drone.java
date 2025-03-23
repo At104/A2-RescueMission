@@ -85,10 +85,10 @@ public class Drone {
         if (result.getScanResult() != null) {
             ScanActionResult scanResult = result.getScanResult();
             for (String creek : scanResult.creeks()) {
-                map.addPointOfInterest(new PointOfInterest(PointOfInterest.POIType.CREEK, creek, position));
+                map.addPointOfInterest(new PointOfInterest(creek, position, POIType.CREEK));
             }
             for (String site : scanResult.sites()) {
-                map.addPointOfInterest(new PointOfInterest(PointOfInterest.POIType.EMERGENCY_SITE, site, position));
+                map.addPointOfInterest(new PointOfInterest(site, position, POIType.EMERGENCY_SITE));
             }
         }
     }

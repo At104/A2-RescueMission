@@ -14,13 +14,6 @@ public class Position {
     }
 
    
-    public int getManhattanDistance(Position other) {
-        return Math.abs(this.x - other.x) + Math.abs(this.y - other.y);
-    }
-
-    public boolean isAdjacent(Position other) {
-        return this.getManhattanDistance(other) == 1;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -66,6 +59,10 @@ public class Position {
 
     public boolean isWater() {
         return biome == Biome.OCEAN;
+    }
+
+    public double distanceTo(Position p) {
+        return Math.hypot(this.x - p.getX(), this.y - p.getY());
     }
 
     public enum Biome {

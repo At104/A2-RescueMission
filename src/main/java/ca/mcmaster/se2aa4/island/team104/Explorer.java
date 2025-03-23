@@ -31,7 +31,7 @@ public class Explorer implements IExplorerRaid {
         logger.info("Battery level is {}", batteryLevel);
 
         // Create initial objects
-        CoordinateMap map = new CoordinateMap(0, 0); // Size will be determined by echo
+        CoordinateMap map = new CoordinateMap(); // Size will be determined by echo
         Position startPos = new Position(1, 1); // Start at (1,1)
         Direction startDir = Direction.valueOf(direction);
         

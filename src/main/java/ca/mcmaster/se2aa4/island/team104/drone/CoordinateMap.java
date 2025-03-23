@@ -6,17 +6,47 @@ import java.util.List;
 import java.util.Set;
 
 public class CoordinateMap {
-    private int height;
     private int width;
+    private int height;
     private Set<Position> visitedPositions;
     private Position startingPosition;
     private List<PointOfInterest> creeks;
     private PointOfInterest site;
-    public CoordinateMap(int width, int height) {
-        this.width = width;
-        this.height = height;
+
+    public CoordinateMap() {
+        this.width = -1;
+        this.height = -1;
         this.visitedPositions = new HashSet<>();
         this.creeks = new ArrayList<>();
+    }
+
+    public boolean hasWidth() {
+        return width != -1;
+    }
+
+    public boolean hasHeight() {
+        return height != -1;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setDimensions(int height, int width) {
+        this.height = height;
+        this.width = width;
     }
 
     public void addVisitedPosition(Position pos) {
@@ -29,19 +59,6 @@ public class CoordinateMap {
 
     public Set<Position> getVisitedPositions() {
         return new HashSet<>(visitedPositions);
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setDimensions(int height, int width) {
-        this.height = height;
-        this.width = width;
     }
 
     public boolean isValidPosition(Position pos) {
@@ -84,32 +101,37 @@ public class CoordinateMap {
     }
 
     public void addPointOfInterest(PointOfInterest poi) {
-        if (poi.isCreek()) {
+        if (poi.type() == POIType.CREEK) {
             addCreek(poi);
-        } 
-        else if (poi.isEmergencySite()) {
+        } else if (poi.type() == POIType.EMERGENCY_SITE) {
             addSite(poi);
         }
     }
 
+    public boolean hasCreeks() {
+        return !creeks.isEmpty();
+    }
+
+    public boolean hasSite() {
+        return site != null;
+    }
+
     public PointOfInterest getClosestCreek() {
-        if (creeks.isEmpty()) {
+        if (!hasSite()) {
             return null;
         }
 
-        PointOfInterest closestCreek = creeks.get(0);
-        int minDistance = site.getPosition().getManhattanDistance(closestCreek.getPosition());
+        PointOfInterest closestCreek = null;
+        double minDistance = -1;
 
         for (PointOfInterest creek : creeks) {
-            int distance = site.getPosition().getManhattanDistance(creek.getPosition());
+            double distance = creek.position().distanceTo(site.position());
             if (distance < minDistance) {
                 minDistance = distance;
                 closestCreek = creek;
             }
         }
-
         return closestCreek;
     }
-    
-    
 }
+
