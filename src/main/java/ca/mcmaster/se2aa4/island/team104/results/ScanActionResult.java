@@ -2,6 +2,7 @@ package ca.mcmaster.se2aa4.island.team104.results;
 
 import java.util.List;
 
+//should only have one emergency site 
 public record ScanActionResult(List<String> biomes,
                                List<String> creeks,
                                List<String> sites) {

@@ -4,57 +4,53 @@ import org.json.JSONObject;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
-import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
+import ca.mcmaster.se2aa4.island.team104.drone.PointOfInterest;
+import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 
 public abstract class Algorithm {
     private Drone drone;
     private State state;
-    public Algorithm(Drone drone, State state) {
+
+    public Algorithm(Drone drone) {
         this.drone = drone;
-        this.state = state;
+        this.state = getStartState(drone);
+    }
+
+    public Drone getDrone() {
+        return drone;
     }
 
     public Action makeDecision() {
         return state.getNextAction();
     }
 
-    public CoordinateMap getMap() {
-        return drone.getMap();
+    public void processResults(ActionResult result) {
+        state = state.getNextState(result);
     }
 
-    protected State getState() {
-        return state;
-    }
-
-    protected void setState(State state) {
-        this.state = state;
-    }
-
-    public State processResult(ActionResult result) {
-        // Process scan results first
-        drone.processScanResult(result);
-        // Then update state
-        return state.getNextState(result);
-    }
+    protected abstract State getStartState(Drone drone);
 
     public String makeFinalReport() {
-        CoordinateMap map = drone.getMap();
-        if (map.getSite() == null) {
-            return "Site not found";
-        }
-        else {
-            if (map.getCreeks().size() > 0) {
-                JSONObject json = new JSONObject(); 
-                json.put("site", map.getSite().toString());
-                json.put("creeks", map.getCreeks().toString());
-                json.put("nearest creek", map.getClosestCreek().toString());
-                return json.toString();
-            }
-            else {
-                JSONObject json = new JSONObject();
-                json.put("site", map.getSite().toString());
-                return json.toString();
+        CoordinateMap mapInfo = drone.getMap();
+
+        if (mapInfo.getCreeks().isEmpty()) {
+            return "no creek found";
+        } else {
+            PointOfInterest site = mapInfo.getSite();
+
+            if (site != null) {
+                PointOfInterest creek = mapInfo.getClosestCreek();
+
+                JSONObject obj = new JSONObject();
+                obj.put("emergency_site", site.id());
+                obj.put("nearest_creek", creek.id());
+
+                return obj.toString();
+            } else {
+                JSONObject obj = new JSONObject();
+                obj.put("creek", mapInfo.getCreeks().get(0).id());
+                return obj.toString();
             }
         }
     }

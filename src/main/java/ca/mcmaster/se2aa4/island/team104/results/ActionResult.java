@@ -41,7 +41,7 @@ public class ActionResult {
             result = scanResult.toString();
         }
         json.put("extras", result);
-        json.put("status", status ? "OK" : "FAIL");
+        json.put("status", status ? "OK" : "MIA");
 
         return json.toString();
     }

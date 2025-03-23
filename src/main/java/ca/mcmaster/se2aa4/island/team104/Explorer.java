@@ -10,9 +10,9 @@ import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Position;
-import ca.mcmaster.se2aa4.island.team104.states.BasicAlgorithm;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
-import ca.mcmaster.se2aa4.island.team104.actions.Action;
+import ca.mcmaster.se2aa4.island.team104.states.BasicAlgorithm;
+
 
 public class Explorer implements IExplorerRaid {
 
@@ -29,14 +29,8 @@ public class Explorer implements IExplorerRaid {
         Integer batteryLevel = info.getInt("budget");
         logger.info("The drone is facing {}", direction);
         logger.info("Battery level is {}", batteryLevel);
-
-        // Create initial objects
-        CoordinateMap map = new CoordinateMap(); // Size will be determined by echo
-        Position startPos = new Position(1, 1); // Start at (1,1)
-        Direction startDir = Direction.valueOf(direction);
         
-        // Initialize drone and algorithm
-        drone = new Drone(startPos, startDir, batteryLevel, map);
+        drone = new Drone(new Position(1, 1),Direction.valueOf(direction.toUpperCase()), batteryLevel, new CoordinateMap());
         algorithm = new BasicAlgorithm(drone);
 
         logger.info("** Initialization complete");
@@ -44,8 +38,7 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String takeDecision() {
-        Action action = algorithm.makeDecision();
-        JSONObject decision = action.makeAction();
+        JSONObject decision = algorithm.makeDecision().makeAction();
         logger.info("** Decision: {}", decision.toString());
         return decision.toString();
     }
@@ -62,11 +55,13 @@ public class Explorer implements IExplorerRaid {
         logger.info("Additional information received: {}", extraInfo);
         logger.info("Drone battery level is now {}", drone.getBatteryLevel());
 
-       
-            ActionResult result = new ActionResult(response);
-            Action action = algorithm.makeDecision();
-            action.execute(drone, result);
-            algorithm.processResult(result);
+        try {
+            algorithm.processResults(new ActionResult(response));
+        } 
+        catch (Exception e) {
+            logger.error("Error in acknowledgeResults: {}", e);
+            throw e;
+        }
         
     }
 

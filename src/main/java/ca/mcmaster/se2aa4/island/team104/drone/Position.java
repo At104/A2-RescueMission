@@ -14,7 +14,6 @@ public class Position {
     }
 
    
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -22,8 +21,6 @@ public class Position {
         Position position = (Position) o;
         return x == position.x && y == position.y;
     }
-
-   
 
     public int getX() {
         return x;
@@ -70,6 +67,7 @@ public class Position {
         BEACH,
         FOREST,
         GRASSLAND,
+        GLACIER,
         UNKNOWN
     }
 

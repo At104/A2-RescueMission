@@ -17,11 +17,8 @@ public class EndingState extends State {
 
     @Override
     public State getNextState(ActionResult result) {
-        return null;  // Mission complete
+        return this;
     }
 
-    @Override
-    public String toString() {
-        return "EndingState";
-    }
+   
 }
