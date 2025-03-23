@@ -1,4 +1,4 @@
-package ca.mcmaster.se2aa4.island.team104.states;
+package ca.mcmaster.se2aa4.island.team104.algo;
 
 import org.json.JSONObject;
 
@@ -7,6 +7,7 @@ import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.PointOfInterest;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
+import ca.mcmaster.se2aa4.island.team104.states.State;
 
 public abstract class Algorithm {
     private Drone drone;
