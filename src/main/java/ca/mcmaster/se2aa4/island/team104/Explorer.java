@@ -7,11 +7,11 @@ import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
+import ca.mcmaster.se2aa4.island.team104.algo.basicalgorithm.BasicAlgorithm;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Position;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
-import ca.mcmaster.se2aa4.island.team104.states.BasicAlgorithm;
 
 
 public class Explorer implements IExplorerRaid {

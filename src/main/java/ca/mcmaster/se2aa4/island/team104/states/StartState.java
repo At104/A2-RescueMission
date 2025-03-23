@@ -33,22 +33,22 @@ public class StartState extends State {
         // If you are checking out the range of the direction
         if (action.type() == ActionType.ECHO) {
 
-            // Add the dimensions of the map
+            
             dimensions.put(currentDirection, result.getEchoResult().range());
             return this;
         } else if (action.type() == ActionType.HEADING) {
-            // If you are moving to the next direction
+            
             drone.updateHeading(currentDirection);
 
             if (dimensions.size() == 4) {
-                // Update the position of the drone and move to grid search state
+               
                 int height = (dimensions.get(Direction.NORTH) + dimensions.get(Direction.SOUTH) + 1);
                 int width = (dimensions.get(Direction.EAST) + dimensions.get(Direction.WEST) + 1);
 
-                // update dimensions and position
+                
                 drone.getMap().setDimensions(height, width);
 
-                // If all directions have been checked, move to (1,1)
+               
                 return new SearchState(drone);
             }
 
