@@ -35,31 +35,16 @@ public class Drone {
         return batteryLevel;
     }
 
-    public boolean consumeBattery(int amount) {
-        if (batteryLevel >= amount) {
-            batteryLevel -= amount;
-            return true;
-        }
-        return false;
-    }
-
-    public boolean hasEnoughBattery(int requiredAmount) {
-        return batteryLevel >= requiredAmount;
-    }
-
     public boolean isOutOfBattery() {
         return batteryLevel <= 0;
     }
 
-    public boolean decreaseBatteryOfAction(ActionResult result) {
+    public void decreaseBatteryOfAction(ActionResult result) {
         int cost = result.getCost();
         if (batteryLevel >= cost) {
             batteryLevel -= cost;
-            return true;
-        } 
-        else {
+        } else {
             logger.info("Battery too low! Stopping mission.");
-            return false;
         }
     }
 
