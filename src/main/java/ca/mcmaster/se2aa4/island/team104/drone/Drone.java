@@ -14,6 +14,7 @@ public class Drone {
     private final CoordinateMap map;
     private final Logger logger = LogManager.getLogger();
     private final ActionFactory actionFactory;
+    private ScanActionResult lastScanResult;
 
     public Drone(Position startPos, Direction startDir, int battery, CoordinateMap map) {
         logger.info("Initializing Drone...");
@@ -100,14 +101,13 @@ public class Drone {
     public void processScanResult(ActionResult result) {
         logger.info("Processing scan result...");
         if (result.getScanResult() != null) {
-            ScanActionResult scanResult = result.getScanResult();
+            lastScanResult = result.getScanResult();
             
-            
-            for (String creek : scanResult.creeks()) {
+            for (String creek : lastScanResult.creeks()) {
                 logger.info("Adding creek POI: {}", creek);
                 map.addPointOfInterest(new PointOfInterest(creek, position, POIType.CREEK));
             }
-            for (String site : scanResult.sites()) {
+            for (String site : lastScanResult.sites()) {
                 logger.info("Found emergency site: {} at position: {}", site, position);
                 map.addPointOfInterest(new PointOfInterest(site, position, POIType.EMERGENCY_SITE));
             }
@@ -115,5 +115,9 @@ public class Drone {
         else {
             logger.warn("No scan result found in action result.");
         }
+    }
+
+    public String getCurrentBiome() {
+        return lastScanResult != null && !lastScanResult.biomes().isEmpty() ? lastScanResult.biomes().get(0) : null;
     }
 }
