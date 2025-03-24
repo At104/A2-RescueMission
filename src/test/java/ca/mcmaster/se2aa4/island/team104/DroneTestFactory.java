@@ -1,4 +1,9 @@
-package ca.mcmaster.se2aa4.island.team104.drone;
+package ca.mcmaster.se2aa4.island.team104;
+
+import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
+import ca.mcmaster.se2aa4.island.team104.drone.Direction;
+import ca.mcmaster.se2aa4.island.team104.drone.Drone;
+import ca.mcmaster.se2aa4.island.team104.drone.Position;
 
 public class DroneTestFactory {
     public Drone initDrone(int x, int y, int battery, String direction ) {

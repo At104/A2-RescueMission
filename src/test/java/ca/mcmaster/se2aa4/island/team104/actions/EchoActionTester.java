@@ -2,7 +2,7 @@ package ca.mcmaster.se2aa4.island.team104.actions;
 
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
-import ca.mcmaster.se2aa4.island.team104.drone.DroneTestFactory;
+import ca.mcmaster.se2aa4.island.team104.DroneTestFactory;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;

@@ -3,7 +3,7 @@ package ca.mcmaster.se2aa4.island.team104.actions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
-import ca.mcmaster.se2aa4.island.team104.drone.DroneTestFactory;
+import ca.mcmaster.se2aa4.island.team104.DroneTestFactory;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 import org.json.JSONObject;
 
