@@ -42,6 +42,7 @@ public class SearchState extends State {
         if(!vertLandFound && leftLandFound && action.type() == ActionType.HEADING) {
             log.warn("Heading not found in action result.");
             return new BigTurnState(drone);
+            //return new EndingState(drone);
         }
         
         if (action.type() == ActionType.FLY) {
@@ -79,18 +80,24 @@ public class SearchState extends State {
             if (changingDirection) {
                 changingDirection = false;
                 action = drone.runFlyAction();
+                log.info("vert land resetting to false");
+                vertLandFound = false;
             } 
             else {
                 changingDirection = true;
                 if (position.getY() + 2 >= map.getHeight()) {
                     // If the drone is not facing the end of the map (vertically) do the following
                     action = drone.runHeadingAction(direction.left());
+
+
                 } 
                 else {
                     // If the drone is not facing the end of the map (vertically) do the following
                     action = drone.runHeadingAction(direction.right());
+
+
                 }
-                vertLandFound = false;
+
             }
 
         } 

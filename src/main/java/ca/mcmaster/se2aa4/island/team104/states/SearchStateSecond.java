@@ -16,6 +16,7 @@ public class SearchStateSecond extends State {
     private boolean changingDirection;
     private final Logger logger = LogManager.getLogger();
 
+
     public SearchStateSecond(Drone drone) {
         super(drone);
         action = drone.runFlyAction();
