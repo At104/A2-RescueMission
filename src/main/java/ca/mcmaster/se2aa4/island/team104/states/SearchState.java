@@ -7,12 +7,17 @@ import ca.mcmaster.se2aa4.island.team104.drone.Position;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 public class SearchState extends State {
+    private static final Logger log = LogManager.getLogger(SearchState.class);
     private Action action;
     private boolean changingDirection;
-//    private boolean firstLandFound = false;
-//    private boolean lastLandFound = false;
+    private boolean leftLandFound = false;
+    private boolean vertLandFound = false;
 
     public SearchState(Drone drone) {
         super(drone);
@@ -33,6 +38,10 @@ public class SearchState extends State {
 
         if (drone.getBatteryLevel() < 35) {
             return new EndingState(drone);
+        }
+        if(!vertLandFound && leftLandFound && action.type() == ActionType.HEADING) {
+            log.warn("Heading not found in action result.");
+            return new BigTurnState(drone);
         }
         
         if (action.type() == ActionType.FLY) {
@@ -61,6 +70,8 @@ public class SearchState extends State {
         CoordinateMap map = drone.getMap();
         Direction direction = drone.getHeading();
 
+
+
         if (action.type() == ActionType.FLY) {
             action = drone.runScanAction();
         } 
@@ -79,6 +90,7 @@ public class SearchState extends State {
                     // If the drone is not facing the end of the map (vertically) do the following
                     action = drone.runHeadingAction(direction.right());
                 }
+                vertLandFound = false;
             }
 
         } 
@@ -90,9 +102,15 @@ public class SearchState extends State {
             else if (direction == Direction.NORTH && position.getY() - 2 < 1) {
                 // If the drone is not facing the end of the map (vertically) do the following
                 action = drone.runHeadingAction(direction.right());
-            } 
+            }
             else {
                 action = drone.runFlyAction();
+                if(!leftLandFound){
+                    leftLandFound = !drone.getCurrentBiome().contains("OCEAN");
+                }
+                if(!vertLandFound){
+                    vertLandFound = !drone.getCurrentBiome().contains("OCEAN");
+                }
             }
         }
         
