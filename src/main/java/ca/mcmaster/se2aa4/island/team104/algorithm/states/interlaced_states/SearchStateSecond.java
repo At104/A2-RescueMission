@@ -17,6 +17,8 @@ public class SearchStateSecond extends State {
     private Action action;
     private boolean changingDirection;
     private final Logger logger = LogManager.getLogger();
+    private boolean leftLandFound = false;
+    private boolean vertLandFound = false;
 
 
     public SearchStateSecond(Drone drone) {
@@ -37,6 +39,11 @@ public class SearchStateSecond extends State {
 
         if (drone.getBatteryLevel() < 35) {
             return new EndingState(drone);
+        }
+
+        if(!vertLandFound && leftLandFound && action.type() == ActionType.HEADING) {
+            return new EndingState(drone);
+
         }
 
         if (action.type() == ActionType.FLY) {
@@ -70,6 +77,7 @@ public class SearchStateSecond extends State {
             if (changingDirection) {
                 changingDirection = false;
                 action = drone.runFlyAction();
+                vertLandFound = false;
             }
             else {
                 changingDirection = true;
@@ -95,6 +103,12 @@ public class SearchStateSecond extends State {
             }
             else {
                 action = drone.runFlyAction();
+                if(!leftLandFound){
+                    leftLandFound = !drone.getCurrentBiome().contains("OCEAN");
+                }
+                if(!vertLandFound){
+                    vertLandFound = !drone.getCurrentBiome().contains("OCEAN");
+                }
             }
         }
 
