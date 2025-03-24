@@ -75,7 +75,14 @@ public class Explorer implements IExplorerRaid {
 
     @Override
     public String deliverFinalReport() {
-        String finalReport = algorithm.makeFinalReport();
+
+        String finalReport = null;
+        try {
+            finalReport = algorithm.makeFinalReport();
+        } catch (Exception e) {
+            logger.error("Error in deliverFinalReport: {}", e);
+            throw new RuntimeException(e);
+        }
         logger.info("** Final report: {}", finalReport);
         return finalReport;
     }

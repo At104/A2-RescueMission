@@ -8,11 +8,12 @@ import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 public class BigTurnState extends State {
     private int uTurns = 0;
     private boolean facingNorth;
-    Action action;
+    private Action action;
 
     public BigTurnState(Drone drone){
         super(drone);
         facingNorth = drone.getHeading() == Direction.NORTH;
+        action = null;
 
     }
 

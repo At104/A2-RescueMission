@@ -11,6 +11,8 @@ import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 public class SearchState extends State {
     private Action action;
     private boolean changingDirection;
+//    private boolean firstLandFound = false;
+//    private boolean lastLandFound = false;
 
     public SearchState(Drone drone) {
         super(drone);
@@ -37,11 +39,13 @@ public class SearchState extends State {
             if (direction == Direction.NORTH) {
                 if (position.getY() - 4 < 1 && position.getX() + 4 > map.getWidth()) {
                     return new BigTurnState(drone);
+                    //return new EndingState(drone);
                 }
             }
             if (direction == Direction.SOUTH) {
                 if (position.getY() + 4 >= map.getHeight() && position.getX() + 4 > map.getWidth()) {
                     return new BigTurnState(drone);
+                    //return  new EndingState(drone);
                 }
             }
         }

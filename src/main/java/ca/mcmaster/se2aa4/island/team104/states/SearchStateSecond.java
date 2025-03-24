@@ -7,11 +7,14 @@ import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.drone.Position;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class SearchStateSecond extends State {
 
     private Action action;
     private boolean changingDirection;
+    private final Logger logger = LogManager.getLogger();
 
     public SearchStateSecond(Drone drone) {
         super(drone);
@@ -20,11 +23,14 @@ public class SearchStateSecond extends State {
     }
     @Override
     public State getNextState(ActionResult result) {
+
         Drone drone = getDrone();
         action.execute(drone, result);
         Position position = drone.getPosition();
         Direction direction = drone.getHeading();
         CoordinateMap map = drone.getMap();
+
+        logger.info(map.getCreeks().toString());
 
         if (drone.getBatteryLevel() < 35) {
             return new EndingState(drone);
@@ -32,12 +38,12 @@ public class SearchStateSecond extends State {
 
         if (action.type() == ActionType.FLY) {
             if (direction == Direction.NORTH) {
-                if (position.getY() - 2 < 1 && position.getX() + 2 > map.getWidth()) {
+                if (position.getY() - 2 < 1 && position.getX() - 2 < 3 ) {
                     return new EndingState(drone);
                 }
             }
             if (direction == Direction.SOUTH) {
-                if (position.getY() + 2 >= map.getHeight() && position.getX() + 2 > map.getWidth()) {
+                if (position.getY() + 2 >= map.getHeight() && position.getX() - 2 < 3) {
                     return new EndingState(drone);
                 }
             }
