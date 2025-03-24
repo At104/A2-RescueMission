@@ -16,6 +16,7 @@ public class StopActionTester {
     @BeforeEach
     public void setup() {
         json = new JSONObject();
+
         json.put("cost", 3);
         json.put("status", "OK");
         json.put("extras", new JSONObject());
