@@ -6,6 +6,9 @@ import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class BigTurnState extends State {
     private int uTurns = 0;
     private boolean facingNorth;
@@ -15,6 +18,9 @@ public class BigTurnState extends State {
         super(drone);
         facingNorth = drone.getHeading() == Direction.NORTH;
         action = null;
+        if(drone.getHeading() == Direction.WEST || drone.getHeading() == Direction.EAST) {
+            uTurns = 1;
+        }
 
     }
 

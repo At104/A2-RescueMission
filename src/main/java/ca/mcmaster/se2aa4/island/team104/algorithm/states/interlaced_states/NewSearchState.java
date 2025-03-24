@@ -45,6 +45,7 @@ public class NewSearchState extends State {
         }
         if(!vertLandFound && leftLandFound && action.type() == ActionType.HEADING) {
             log.warn("Heading not found in action result.");
+            log.info("direction: {}", direction);
             return new BigTurnState(drone);
             
         }
