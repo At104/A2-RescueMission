@@ -101,16 +101,19 @@ public class Drone {
         logger.info("Processing scan result...");
         if (result.getScanResult() != null) {
             ScanActionResult scanResult = result.getScanResult();
+            
+            
             for (String creek : scanResult.creeks()) {
                 logger.info("Adding creek POI: {}", creek);
                 map.addPointOfInterest(new PointOfInterest(creek, position, POIType.CREEK));
             }
             for (String site : scanResult.sites()) {
-                logger.info("Adding emergency site POI: {}", site);
+                logger.info("Found emergency site: {} at position: {}", site, position);
                 map.addPointOfInterest(new PointOfInterest(site, position, POIType.EMERGENCY_SITE));
             }
-        } else {
-            logger.warn("No scan result found.");
+        } 
+        else {
+            logger.warn("No scan result found in action result.");
         }
     }
 }

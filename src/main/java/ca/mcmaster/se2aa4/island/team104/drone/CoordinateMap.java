@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class CoordinateMap {
     private int width;
@@ -12,6 +14,7 @@ public class CoordinateMap {
     private Position startingPosition;
     private List<PointOfInterest> creeks;
     private PointOfInterest site;
+    private final Logger logger = LogManager.getLogger();
 
     public CoordinateMap() {
         this.width = -1;
@@ -94,13 +97,16 @@ public class CoordinateMap {
 
     private void addCreek(PointOfInterest creek) {
         creeks.add(creek);
+        logger.info("Added creek: {} at position: {}", creek.id(), creek.position());
     }
 
     private void addSite(PointOfInterest site) {
         this.site = site;
+        logger.info("Added emergency site: {} at position: {}", site.id(), site.position());
     }
 
     public void addPointOfInterest(PointOfInterest poi) {
+        logger.info("Adding POI of type: {} with ID: {} at position: {}", poi.type(), poi.id(), poi.position());
         if (poi.type() == POIType.CREEK) {
             addCreek(poi);
         } else if (poi.type() == POIType.EMERGENCY_SITE) {
@@ -117,12 +123,13 @@ public class CoordinateMap {
     }
 
     public PointOfInterest getClosestCreek() {
+        logger.info("Getting closest creek");
         if (!hasSite()) {
             return null;
         }
 
         PointOfInterest closestCreek = null;
-        double minDistance = -1;
+        double minDistance = Double.MAX_VALUE;
 
         for (PointOfInterest creek : creeks) {
             double distance = creek.position().distanceTo(site.position());
@@ -131,6 +138,7 @@ public class CoordinateMap {
                 closestCreek = creek;
             }
         }
+        logger.info("Closest creek: {}", closestCreek);
         return closestCreek;
         
     }
