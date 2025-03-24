@@ -6,6 +6,6 @@ import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
 
 public interface Action {
     void execute(Drone drone, ActionResult result);
-    JSONObject makeAction();
+    JSONObject makeActionJsonObject();
     ActionType type();
 }

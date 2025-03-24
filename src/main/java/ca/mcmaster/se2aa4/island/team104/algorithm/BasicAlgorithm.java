@@ -1,9 +1,8 @@
-package ca.mcmaster.se2aa4.island.team104.algo.basicalgorithm;
+package ca.mcmaster.se2aa4.island.team104.algorithm;
 
-import ca.mcmaster.se2aa4.island.team104.algo.Algorithm;
+import ca.mcmaster.se2aa4.island.team104.algorithm.states.basic_states.StartState;
+import ca.mcmaster.se2aa4.island.team104.algorithm.states.State;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
-import ca.mcmaster.se2aa4.island.team104.states.StartState;
-import ca.mcmaster.se2aa4.island.team104.states.State;
 
 public class BasicAlgorithm extends Algorithm {
     public BasicAlgorithm(Drone drone) {

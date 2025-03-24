@@ -7,7 +7,9 @@ import eu.ace_design.island.bot.IExplorerRaid;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
-import ca.mcmaster.se2aa4.island.team104.algo.basicalgorithm.BasicAlgorithm;
+import ca.mcmaster.se2aa4.island.team104.algorithm.Algorithm;
+import ca.mcmaster.se2aa4.island.team104.algorithm.BasicAlgorithm;
+import ca.mcmaster.se2aa4.island.team104.algorithm.InterlacedAlgorithm;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Position;
@@ -18,7 +20,7 @@ public class Explorer implements IExplorerRaid {
 
     private final Logger logger = LogManager.getLogger();
     private Drone drone;
-    private BasicAlgorithm algorithm;
+    private Algorithm algorithm;
     private JSONObject info;
 
     @Override
@@ -39,14 +41,14 @@ public class Explorer implements IExplorerRaid {
             throw e;
         }
 
-        algorithm = new BasicAlgorithm(drone);
+        algorithm = new InterlacedAlgorithm(drone);
 
         logger.info("** Initialization complete");
     }
 
     @Override
     public String takeDecision() {
-        JSONObject decision = algorithm.makeDecision().makeAction();
+        JSONObject decision = algorithm.makeAction().makeActionJsonObject();
         logger.info("** Decision: {}", decision.toString());
         return decision.toString();
     }

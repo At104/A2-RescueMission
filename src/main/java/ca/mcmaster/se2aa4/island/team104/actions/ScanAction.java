@@ -12,7 +12,7 @@ public class ScanAction implements Action {
     }
 
     @Override
-    public JSONObject makeAction() {
+    public JSONObject makeActionJsonObject() {
         JSONObject command = new JSONObject();
         command.put("action", "scan");
         return command;

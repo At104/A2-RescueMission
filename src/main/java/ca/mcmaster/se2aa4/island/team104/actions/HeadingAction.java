@@ -54,7 +54,7 @@ public class HeadingAction implements Action {
     }
 
     @Override
-    public JSONObject makeAction() {
+    public JSONObject makeActionJsonObject() {
         JSONObject command = new JSONObject();
         command.put("action", "heading");
         command.put("parameters", new JSONObject().put("direction", heading.toString()));

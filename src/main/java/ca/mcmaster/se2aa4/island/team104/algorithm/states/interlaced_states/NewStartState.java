@@ -1,7 +1,8 @@
-package ca.mcmaster.se2aa4.island.team104.states;
+package ca.mcmaster.se2aa4.island.team104.algorithm.states.interlaced_states;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
 import ca.mcmaster.se2aa4.island.team104.actions.ActionType;
+import ca.mcmaster.se2aa4.island.team104.algorithm.states.State;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
@@ -10,13 +11,13 @@ import ca.mcmaster.se2aa4.island.team104.drone.Position;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StartState extends State {
+public class NewStartState extends State {
 
     private Map<Direction, Integer> dimensions;
     private Action action;
     private boolean start;
 
-    public StartState(Drone drone) {
+    public NewStartState(Drone drone) {
         super(drone);
         dimensions = new HashMap<>();
         drone.updatePosition(new Position(1, 1));
@@ -49,7 +50,7 @@ public class StartState extends State {
                 drone.getMap().setDimensions(height, width);
 
                
-                return new SearchState(drone);
+                return new NewSearchState(drone);
             }
 
             return this;

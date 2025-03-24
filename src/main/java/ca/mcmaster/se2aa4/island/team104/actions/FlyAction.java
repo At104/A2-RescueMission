@@ -39,7 +39,7 @@ public class FlyAction implements Action {
     }
 
     @Override
-    public JSONObject makeAction() {
+    public JSONObject makeActionJsonObject() {
         JSONObject command = new JSONObject();
         command.put("action", "fly");
         return command;

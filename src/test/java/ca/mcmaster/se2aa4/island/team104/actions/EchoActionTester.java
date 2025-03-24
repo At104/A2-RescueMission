@@ -25,7 +25,7 @@ public class EchoActionTester {
     @Test
     public void testEchoAction() {
         EchoAction echoAction = new EchoAction(Direction.EAST);
-        JSONObject obj = echoAction.makeAction();
+        JSONObject obj = echoAction.makeActionJsonObject();
         assertEquals(ActionType.ECHO, echoAction.type());
         assertEquals("echo", obj.getString("action"));
         assertEquals("E", obj.getJSONObject("parameters").getString("direction"));

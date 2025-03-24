@@ -11,7 +11,7 @@ public class StopAction implements Action {
     }
 
     @Override
-    public JSONObject makeAction() {
+    public JSONObject makeActionJsonObject() {
         JSONObject command = new JSONObject();
         command.put("action", "stop");
         return command;

@@ -25,7 +25,7 @@ public class FlyActionTester {
     @Test
     public void testFlyAction() {
         FlyAction flyAction = new FlyAction();
-        JSONObject obj = flyAction.makeAction();
+        JSONObject obj = flyAction.makeActionJsonObject();
         assertEquals(ActionType.FLY, flyAction.type());
         assertEquals("fly", obj.getString("action"));
     }

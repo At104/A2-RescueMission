@@ -25,7 +25,7 @@ public class ScanActionTester {
     @Test
     public void testScanAction() {
         ScanAction scanAction = new ScanAction();
-        JSONObject obj = scanAction.makeAction();
+        JSONObject obj = scanAction.makeActionJsonObject();
         assertEquals(ActionType.SCAN, scanAction.type());
         assertEquals("scan", obj.getString("action"));
     }

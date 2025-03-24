@@ -1,6 +1,7 @@
-package ca.mcmaster.se2aa4.island.team104.states;
+package ca.mcmaster.se2aa4.island.team104.algorithm.states.interlaced_states;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
+import ca.mcmaster.se2aa4.island.team104.algorithm.states.State;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;

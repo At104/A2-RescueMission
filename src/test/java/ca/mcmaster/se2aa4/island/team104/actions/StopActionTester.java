@@ -25,7 +25,7 @@ public class StopActionTester {
     @Test
     public void testStopAction() {
         StopAction stopAction = new StopAction();
-        JSONObject obj = stopAction.makeAction();
+        JSONObject obj = stopAction.makeActionJsonObject();
         assertEquals(ActionType.STOP, stopAction.type());
         assertEquals("stop", obj.getString("action"));
     }

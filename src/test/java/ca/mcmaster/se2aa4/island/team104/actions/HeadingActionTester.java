@@ -29,7 +29,7 @@ public class HeadingActionTester {
     @Test
     public void testHeadingAction() {
         HeadingAction headingAction = new HeadingAction(Direction.SOUTH);
-        JSONObject obj = headingAction.makeAction();
+        JSONObject obj = headingAction.makeActionJsonObject();
         assertEquals(ActionType.HEADING, headingAction.type());
         assertEquals("heading", obj.getString("action"));
         assertEquals("S", obj.getJSONObject("parameters").getString("direction"));

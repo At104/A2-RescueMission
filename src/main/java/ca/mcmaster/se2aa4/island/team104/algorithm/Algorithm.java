@@ -1,15 +1,15 @@
-package ca.mcmaster.se2aa4.island.team104.algo;
+package ca.mcmaster.se2aa4.island.team104.algorithm;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import ca.mcmaster.se2aa4.island.team104.actions.Action;
+import ca.mcmaster.se2aa4.island.team104.algorithm.states.State;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.PointOfInterest;
 import ca.mcmaster.se2aa4.island.team104.results.ActionResult;
-import ca.mcmaster.se2aa4.island.team104.states.State;
 
 public abstract class Algorithm {
     private Drone drone;
@@ -24,7 +24,7 @@ public abstract class Algorithm {
         return drone;
     }
 
-    public Action makeDecision() {
+    public Action makeAction() {
         return state.getNextAction();
     }
 
