@@ -1,39 +1,44 @@
 package ca.mcmaster.se2aa4.island.team104.drone;
 
 public enum Direction {
+    NORTH("N"),
+    SOUTH("S"),
+    EAST("E"),
+    WEST("W"),
+    NONE("NONE");
 
-    NORTH, SOUTH, EAST, WEST, NONE;
+    private final String shortName;
+    private Direction left;
+    private Direction right;
+
+    Direction(String shortName) {
+        this.shortName = shortName;
+    }
+
+    static {
+        NORTH.left = WEST;
+        NORTH.right = EAST;
+        SOUTH.left = EAST;
+        SOUTH.right = WEST;
+        EAST.left = NORTH;
+        EAST.right = SOUTH;
+        WEST.left = SOUTH;
+        WEST.right = NORTH;
+        NONE.left = NONE;
+        NONE.right = NONE;
+    }
 
     public Direction left() {
-        return switch (this) {
-            case NORTH -> Direction.WEST;
-            case SOUTH -> Direction.EAST;
-            case EAST -> Direction.NORTH;
-            case WEST -> Direction.SOUTH;
-            default -> Direction.NONE;
-        };
+        return left;
     }
 
     public Direction right() {
-        return switch (this) {
-            case NORTH -> Direction.EAST;
-            case SOUTH -> Direction.WEST;
-            case EAST -> Direction.SOUTH;
-            case WEST -> Direction.NORTH;
-            default -> Direction.NONE;
-        };
+        return right;
     }
-
 
     @Override
     public String toString() {
-        return switch (this) {
-            case NORTH -> "N";
-            case SOUTH -> "S";
-            case EAST -> "E";
-            case WEST -> "W";
-            default -> "NONE";
-        };
+        return shortName;
     }
 
     public static Direction fromShortName(String shortName) {
@@ -60,5 +65,4 @@ public enum Direction {
             default -> Direction.NONE;
         };
     }
-
 }

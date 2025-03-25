@@ -15,7 +15,7 @@ public class ScanActionTester {
 
     @BeforeEach
     public void setup() {
-        drone = new DroneTestFactory().initDrone(0, 0, 100, "EAST");
+        drone = new DroneTestFactory().initDrone(0, 0, 100, "E");
         json = new JSONObject();
         json.put("cost", 2);
         json.put("status", "OK");

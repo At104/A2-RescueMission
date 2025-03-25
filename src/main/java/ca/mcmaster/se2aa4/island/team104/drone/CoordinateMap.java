@@ -1,16 +1,13 @@
 package ca.mcmaster.se2aa4.island.team104.drone;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class CoordinateMap {
     private int width;
     private int height;
-    private Set<Position> visitedPositions;
     private Position startingPosition;
     private List<PointOfInterest> creeks;
     private PointOfInterest site;
@@ -19,7 +16,6 @@ public class CoordinateMap {
     public CoordinateMap() {
         this.width = -1;
         this.height = -1;
-        this.visitedPositions = new HashSet<>();
         this.creeks = new ArrayList<>();
     }
 
@@ -35,43 +31,13 @@ public class CoordinateMap {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public void setDimensions(int height, int width) {
         this.height = height;
         this.width = width;
-    }
-
-    public void addVisitedPosition(Position pos) {
-        visitedPositions.add(pos);
-    }
-
-    public boolean hasVisited(Position pos) {
-        return visitedPositions.contains(pos);
-    }
-
-    public Set<Position> getVisitedPositions() {
-        return new HashSet<>(visitedPositions);
-    }
-
-    public boolean isValidPosition(Position pos) {
-        return pos.getX() >= 0 && pos.getX() < width &&
-               pos.getY() >= 0 && pos.getY() < height;
-    }
-
-    public boolean isAtMapBoundary(Position pos) {
-        return pos.getX() == 0 || pos.getX() == width - 1 ||
-               pos.getY() == 0 || pos.getY() == height - 1;
     }
 
     public Position getStartingPosition() {
@@ -80,11 +46,6 @@ public class CoordinateMap {
 
     public void setStartingPosition(Position pos) {
         this.startingPosition = pos;
-        addVisitedPosition(pos);
-    }
-
-    public boolean isAtStartingPosition(Position pos) {
-        return pos.equals(startingPosition);
     }
 
     public List<PointOfInterest> getCreeks() {

@@ -88,7 +88,6 @@ public class Drone {
     public void updatePosition(Position newPosition) {
         logger.info("Updating position to: {}", newPosition);
         this.position = newPosition;
-        map.addVisitedPosition(newPosition);
     }
 
     public void updateHeading(Direction newHeading) {

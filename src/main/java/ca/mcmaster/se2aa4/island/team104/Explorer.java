@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 import ca.mcmaster.se2aa4.island.team104.drone.Drone;
 import ca.mcmaster.se2aa4.island.team104.algorithm.Algorithm;
-import ca.mcmaster.se2aa4.island.team104.algorithm.BasicAlgorithm;
 import ca.mcmaster.se2aa4.island.team104.algorithm.InterlacedAlgorithm;
 import ca.mcmaster.se2aa4.island.team104.drone.CoordinateMap;
 import ca.mcmaster.se2aa4.island.team104.drone.Direction;

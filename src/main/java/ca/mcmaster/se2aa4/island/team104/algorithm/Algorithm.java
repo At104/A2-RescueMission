@@ -49,15 +49,16 @@ public abstract class Algorithm {
 
                 JSONObject obj = new JSONObject();
 
-                obj.put("emergency_site_position", site.position().toString());
                 obj.put("emergency_site_id", site.id());
-                obj.put("nearest_creek_position", creek.position().toString());
                 obj.put("nearest_creek_id", creek.id());
+                obj.put("emergency_site_position", site.position().toString());
+                obj.put("nearest_creek_position", creek.position().toString());
+                
 
                 return obj.toString();
             } 
             else {
-                //Should never happen
+                //Should never happen 
                 JSONObject obj = new JSONObject();
                 logger.info("Creeks: {}", mapInfo.getCreeks());
                 obj.put("creek", mapInfo.getCreeks().get(0).id());

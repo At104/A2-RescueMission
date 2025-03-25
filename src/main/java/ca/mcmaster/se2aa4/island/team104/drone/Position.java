@@ -3,39 +3,21 @@ package ca.mcmaster.se2aa4.island.team104.drone;
 public class Position {
     private final int x;
     private final int y;
-    private Biome biome;
     private PointOfInterest poi;
 
     public Position(int x, int y) {
         this.x = x;
         this.y = y;
-        this.biome = Biome.UNKNOWN;
         this.poi = null;
     }
 
    
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Position position = (Position) o;
-        return x == position.x && y == position.y;
-    }
-
     public int getX() {
         return x;
     }
 
     public int getY() {
         return y;
-    }
-
-    public Biome getBiome() {
-        return biome;
-    }
-
-    public void setBiome(Biome biome) {
-        this.biome = biome;
     }
 
     public PointOfInterest getPointOfInterest() {
@@ -45,32 +27,11 @@ public class Position {
     public void setPointOfInterest(PointOfInterest poi) {
         this.poi = poi;
     }
-
-    public boolean hasPointOfInterest() {
-        return poi != null;
-    }
-
-    public boolean isLand() {
-        return biome != Biome.OCEAN && biome != Biome.UNKNOWN;
-    }
-
-    public boolean isWater() {
-        return biome == Biome.OCEAN;
-    }
-
     public double distanceTo(Position p) {
         return Math.hypot(this.x - p.getX(), this.y - p.getY());
     }
 
-    public enum Biome {
-        OCEAN,
-        BEACH,
-        FOREST,
-        GRASSLAND,
-        GLACIER,
-        UNKNOWN
-    }
-
+    @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
     }

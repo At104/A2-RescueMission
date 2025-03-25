@@ -32,7 +32,7 @@ public class StopActionTester {
 
     @Test
     public void testStopActionRunning() {
-        Drone drone = new DroneTestFactory().initDrone(0, 0, 100, "EAST");
+        Drone drone = new DroneTestFactory().initDrone(0, 0, 100, "E");
         StopAction stopAction = new StopAction();
         ActionResult result = new ActionResult(json);
         stopAction.execute(drone, result);
